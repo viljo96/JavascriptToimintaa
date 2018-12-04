@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+h2 {
+  font-size:2.5em;
+  font-family: georgia;
+}
+span {
+  border: solid;
+  border-radius:
+  background-color: black;
+  color:red;
+
+}
+body {
+
+  margin:50px 0;
+  padding:0;
+  text-align:center;
+}
+</style>
+
+</head>
+<body>
+
+<div id="div1" class="header">
+  <h2 style="margin:2px">Muistilista</h2>
+  <input type="text" id="input1" placeholder="Lisää asia...">
+  <span id="nappi" onclick="newElement()" class="addBtn">Lisää</span>
+</div>
+
+<ul id="ul1">
+  <li>Käy kaupassa</li>
+  <li class="checked">Käy koululla</li>
+  <li>Muista maito</li>
+  <li>Osta munia</li>
+
+</ul>
+
+<script>
+// Sulje Nappi joka listalle
+var sulkunapit = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < sulkunapit.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("x");
+  span.className = "close";
+  span.appendChild(txt);
+  sulkunapit[i].appendChild(span);
+}
+
+// Poistaa klikkaamalla muistettavan asian
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Checked muistilistalle
+var lista = document.querySelector('ul');
+lista.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+    ev.target.style.background="black";
+  }
+}, false);
+
+// uusi asia kun painetaan nappia
+function newElement() {
+  var enter=document.getElementById("input1");
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("input1").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("ul1").appendChild(li);
+  }
+  document.getElementById("input1").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("x");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
